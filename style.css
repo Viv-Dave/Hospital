@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -18,8 +18,12 @@ a {
 
 /* Header and Navigation */
 .header {
-  background: #007bff;
-  padding: 10px 20px;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar {
@@ -29,7 +33,7 @@ a {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
 }
@@ -42,41 +46,61 @@ a {
 
 .nav-links li a {
   color: white;
-  transition: color 0.3s;
+  padding: 10px 15px;
+  transition: color 0.3s, background 0.3s;
+  border-radius: 5px;
 }
 
 .nav-links li a:hover {
   color: #ffcc00;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Hero Section */
+/* Hero Section with Dark Overlay */
 .hero {
+  position: relative;
   background: url("hospital-hero.jpg") no-repeat center/cover;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #007bff;
+  color: white;
   padding: 0 20px;
+  z-index: 1;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .hero-content {
   max-width: 700px;
+  z-index: 2;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  animation: fadeInDown 2s ease-out;
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 30px;
+  animation: fadeInUp 2s ease-out;
 }
 
 .cta-button {
-  padding: 10px 20px;
+  padding: 15px 30px;
   background: #ffcc00;
   color: #007bff;
   border-radius: 5px;
@@ -86,25 +110,32 @@ a {
 
 .cta-button:hover {
   background: #e0a800;
+  cursor: pointer;
 }
 
 /* Services Section */
 .services {
-  padding: 50px 20px;
+  padding: 80px 20px;
   text-align: center;
+  background: #f9fafc;
 }
 
 .services h2 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 3rem;
+  margin-bottom: 40px;
   color: #007bff;
 }
 
-.services-container {
+.slider-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.services-slider {
   display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
 }
 
 .service-card {
@@ -113,11 +144,19 @@ a {
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   width: 250px;
+  margin: 0 10px;
   text-align: left;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .service-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 15px;
   color: #007bff;
 }
@@ -127,42 +166,69 @@ a {
   color: #666;
 }
 
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.prev-btn {
+  left: 0;
+}
+
+.next-btn {
+  right: 0;
+}
+
+.slider-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
 /* About Section */
 .about {
-  padding: 50px 20px;
+  padding: 80px 20px;
   text-align: center;
   background: #ffffff;
 }
 
 .about h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 30px;
   color: #007bff;
 }
 
 .about p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
   color: #666;
+  line-height: 1.8;
 }
 
 /* Contact Section */
 .contact {
-  padding: 50px 20px;
+  padding: 80px 20px;
   text-align: center;
   background: #007bff;
   color: white;
 }
 
 .contact h2 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
 .contact-info p {
-  font-size: 1.1rem;
-  margin: 10px 0;
+  font-size: 1.2rem;
+  margin: 15px 0;
 }
 
 /* Footer */
@@ -170,5 +236,59 @@ a {
   background: #333;
   color: white;
   text-align: center;
-  padding: 10px;
+  padding: 20px;
+  font-size: 1rem;
+  position: relative;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .cta-button {
+    padding: 10px 20px;
+  }
+  .services-slider {
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+  .service-card {
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .cta-button {
+    padding: 8px 16px;
+  }
+  .services-container {
+    grid-template-columns: 1fr;
+  }
 }
